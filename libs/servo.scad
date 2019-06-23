@@ -24,8 +24,8 @@ servo_hole_dist = 27.7; //distance of mounting holes, should be 26 to 28*/
 //***********************************************************************
 //param order: [servo_arm_d,servo_arm_h ,servo_arm_w1,servo_arm_w2,servo_arm_l,servo_arm_dist,servo_w,servo_h,servo_l,servo_shaft_d,servo_shaft_h,servo_shaft_dist,servo_mount_l, servo_mount_dist,servo_hole_dist]
 
-SG90 =  [7,4,5.3,4,29,2,12,28,23,5,3,5.5,33,8,27.7];
-MG90 =  [7,4,5.3,4,29,2,12,28,23,5,3,5.5,40,8,27.7];
+SG90 =  [7,4,5.3,4,29,2,12,28,23.2,5,3,5.5,33,8.5,27.7];
+MG90 =  [7,4,5.3,4,29,2,12,29,23.2,5,3,5.5,33,7.5,27.7];
 Servo_List = [SG90,MG90];
 Servo = Servo_List[servo_type];
 
