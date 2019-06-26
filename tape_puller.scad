@@ -37,7 +37,7 @@ Part = 0; //[0:worm, 1:pinnion 1, 2:pinnion 2, 3:case, 4:lever]
 /* [Mechanical Settings] */
 
 //screw type to use to mount to feeder case
-Feeder_Mount_Screw = 0; //[0:countersunk, 1:flat head]
+Feeder_Mount_Screw = 1; //[0:countersunk, 1:flat head]
 
 //M3 throughhole diameter in µm
 3D_Printing_M3_through = 3400;
