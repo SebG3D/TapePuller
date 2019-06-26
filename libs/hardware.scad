@@ -22,7 +22,7 @@ module post_chamfer(id,ad){
     polygon( points=[[id/2,0],[ad/2,0],[id/2,(ad/2-id/2)]]);
 }
 
-//creates a countersunk 912 screw hole
+//creates a countersunk 912 screw hole in z direction
 //d = diameter
 //l = length
 //d_head = head diameter
@@ -50,6 +50,36 @@ module hole_screw_912_countersunk(x,y,z,rx,ry,rz,d,l,d_head,k){
         //translate([0,0,k-0.001])cylinder(s, d_head/2,d_head/2-s, false);
     }
 }
+
+//creates a countersunk 912 screw hole in xy direction
+//d = diameter
+//l = length
+//d_head = head diameter
+//k = head countersunk depth
+module hole_screw_912_countersunkxy(x,y,z,rx,ry,rz,d,l,d_head,k){
+    s=(d_head-d)/2;
+    translate([x,y,z])rotate([rx,ry,rz])union(){
+        //difference(){
+            //union()
+            //{
+                //screw head
+                translate([0,0,-0.1])cylinder(k+0.1, d=d_head, center=false);
+                //scew head steps for easy 3d printing
+                //translate([-(d_head+5)/2,-d/2,k-0.1])cube([d_head+5,d,0.5+0.1],false);
+                //translate([-d/2,-d/2,k-0.1])cube([d,d,1+0.1],false);
+                //screw shaft
+                cylinder(h=l, d=d, center=false);
+            //}
+            //difference(){
+                //build negative to cut acess form screw + screw steps
+               // translate([-d_head,-d_head,0])cube([d_head*2,d_head*2,l],false);
+               //translate([0,0,-0.5])cylinder(l+1, d=d_head, center=false);
+            //}
+        //}
+        //translate([0,0,k-0.001])cylinder(s, d_head/2,d_head/2-s, false);
+    }
+}
+
 
 
 //creates a countersunk screw hole

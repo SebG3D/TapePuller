@@ -36,6 +36,9 @@ Part = 0; //[0:worm, 1:pinnion 1, 2:pinnion 2, 3:case, 4:lever]
 
 /* [Mechanical Settings] */
 
+//screw type to use to mount to feeder case
+Feeder_Mount_Screw = 0; //[0:countersunk, 1:flat head]
+
 //M3 throughhole diameter in µm
 3D_Printing_M3_through = 3400;
 
@@ -93,12 +96,10 @@ CUT_Z = 0; //[0:100]
 3dp_ew = 3D_Printing_Extrusionwidth/1000;
 
 echo("TODO");
-echo("servo circuit with param");
-echo("reuce screw variaty");
+echo("reduce screw variaty");
 echo("------Releas Version-------------");
 echo("6 ballbearing gear 2");
 echo("1 chamfer on self tap screws");
-echo("1 mg90 einführen, Bilder machen");
 echo("3 Testteil einbauen");
 echo("4 check feeder mounting holes for other feeder width");
 echo("5 case_mounts add inside and outside chamfer to strengthen lid post");
@@ -471,8 +472,14 @@ module case(part=0){
                 //connection to feeder
                 union(){
                     //screw holes to connect to feeder
-                    hole_screw_countersunk(wormx,7.5,case_h-20.5,0,-90,0,3.5,wormx+1,6,wormx-case_walls);
-                    hole_screw_countersunk(case_walls,7.5,case_h-60.5,0,-90,0,3.5,case_walls+1,6,1);
+                    if (Feeder_Mount_Screw==0){
+                        hole_screw_countersunk(wormx,7.5,case_h-20.5,0,-90,0,3.5,wormx+0.1,6,wormx-case_walls+0.5);
+                        hole_screw_countersunk(case_walls,7.5,case_h-60.5,0,-90,0,3.5,case_walls+0.1,6,0.5);
+                    }else{
+                        //hole_screw_912_countersunk(x,y,z,rx,ry,rz,d,l,d_head,k);
+                        hole_screw_912_countersunkxy(wormx,7.5,case_h-20.5,0,-90,0,3.5,wormx+0.1,6,wormx-case_walls);
+                        hole_screw_912_countersunkxy(case_walls,7.5,case_h-60.5,0,-90,0,3.5,case_walls+0.1,6,0);
+                    }
                     //hole for cable routing
                     translate([case_walls/2,case_w/2,case_h-48.5])cube([case_walls+1,6,6],true);
                 }
@@ -524,11 +531,11 @@ module case(part=0){
                 }
                 //screw holes case
                 union(){
-                case_screw_post(rotate_x,rotate_z,case_w,false);
-                case_screw_post(5,57,case_w,false);
-                //case_screw_post(wormx+servo_shaft_dist,4,case_w,false); not used anymore
-                //screwin hole for lever
-                hole_screw_countersunk(5,case_w/2,case_h+1,180,0,0,M3_drill_hole_d,8,M3_drill_hole_d+2,1);
+                    case_screw_post(rotate_x,rotate_z,case_w,false);
+                    case_screw_post(5,57,case_w,false);
+                    //case_screw_post(wormx+servo_shaft_dist,4,case_w,false); not used anymore
+                    //screwin hole for lever
+                    hole_screw_countersunk(5,case_w/2,case_h+1,180,0,0,M3_drill_hole_d,8,M3_drill_hole_d+2,1);
                 }
                 //remove lower part for easy access to servo
                 translate([P7_x,-0.1,-0.1])cube([P8_x-P7_x+0.1,case_w+0.2,P2_y+0.1],false);
