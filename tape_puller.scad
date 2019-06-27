@@ -480,7 +480,7 @@ module case(part=0){
                         hole_screw_912_countersunkxy(case_walls,feeder_mount_y,case_h-60.5,0,-90,0,3.5,case_walls+0.1,6,0);
                     }
                     //hole for cable routing
-                    translate([case_walls/2,case_w/2,case_h-48.5])cube([case_walls+1,6,6],true);
+                    translate([case_walls/2,feeder_mount_y,case_h-48.5])cube([case_walls+1,6,6],true);
                 }
                 //features for gears + worm
                 union(){
