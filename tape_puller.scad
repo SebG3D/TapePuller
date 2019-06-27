@@ -4,7 +4,7 @@
 Motor_Type = 2; //[0:SG90, 1:MG90, 2:N20]
 
 //select SMD tape width
-Feeder_Width = 13.5; //[13.5:8mm tape, 16:12mm tape, 20:16mm tape]
+SMD_Tape_Width = 0; //[0:8mm tape, 1:12mm tape, 2:16mm tape, 3:24mm tape]
 
 /* [Gear Settings] */
 
@@ -101,7 +101,6 @@ echo("------Releas Version-------------");
 echo("6 ballbearing gear 2");
 echo("1 chamfer on self tap screws");
 echo("3 Testteil einbauen");
-echo("4 check feeder mounting holes for other feeder width");
 echo("5 case_mounts add inside and outside chamfer to strengthen lid post");
 echo("5 print BOM");
 echo("7 screws for servo and N20 mounting");
@@ -473,12 +472,12 @@ module case(part=0){
                 union(){
                     //screw holes to connect to feeder
                     if (Feeder_Mount_Screw==0){
-                        hole_screw_countersunk(wormx,7.5,case_h-20.5,0,-90,0,3.5,wormx+0.1,6,wormx-case_walls+0.5);
-                        hole_screw_countersunk(case_walls,7.5,case_h-60.5,0,-90,0,3.5,case_walls+0.1,6,0.5);
+                        hole_screw_countersunk(wormx,feeder_mount_y,case_h-20.5,0,-90,0,3.5,wormx+0.1,6,wormx-case_walls+0.5);
+                        hole_screw_countersunk(case_walls,feeder_mount_y,case_h-60.5,0,-90,0,3.5,case_walls+0.1,6,0.5);
                     }else{
                         //hole_screw_912_countersunk(x,y,z,rx,ry,rz,d,l,d_head,k);
-                        hole_screw_912_countersunkxy(wormx,7.5,case_h-20.5,0,-90,0,3.5,wormx+0.1,6,wormx-case_walls);
-                        hole_screw_912_countersunkxy(case_walls,7.5,case_h-60.5,0,-90,0,3.5,case_walls+0.1,6,0);
+                        hole_screw_912_countersunkxy(wormx,feeder_mount_y,case_h-20.5,0,-90,0,3.5,wormx+0.1,6,wormx-case_walls);
+                        hole_screw_912_countersunkxy(case_walls,feeder_mount_y,case_h-60.5,0,-90,0,3.5,case_walls+0.1,6,0);
                     }
                     //hole for cable routing
                     translate([case_walls/2,case_w/2,case_h-48.5])cube([case_walls+1,6,6],true);

@@ -1,4 +1,14 @@
 //-----------------------------------------------------------------------
+//                  FEEDER PARAM
+//-----------------------------------------------------------------------
+//Feeder_Width = 13.5; //[13.5:8mm tape, 16:12mm tape, 20:16mm tape, 28:24mm tape]
+feeder_width_list = [13.5,16,20,28];			//list of feeder width for different SMD tape width
+Feeder_Width = feeder_width_list[SMD_Tape_Width];
+feeder_mount_y_list = [7.55,9.55,11.55,15.55];		//list of y positions for feeder width
+feeder_mount_y = feeder_mount_y_list[SMD_Tape_Width];
+
+
+//-----------------------------------------------------------------------
 //                  3D PRINTING PARAM
 //-----------------------------------------------------------------------
 M3_drill_hole_d = 3D_Printing_M3_tap/1000;  //diameter to directly screw M3 screws in
@@ -55,40 +65,6 @@ gears_tooth_dist = gears_module*pi/cos(gears_lead_angle);				// gears_tooth_dist
 gears_pinion1_ad = (gears_module <1)? gears_pinion1_r*2 + gears_module * 2.2 : gears_pinion1_r*2 + gears_module * 2;				// Kopfkreisdurchmesser nach DIN 58400 bzw. DIN 867
 gears_pinion2_ad = (gears_module <1)? gears_pinion2_r*2 + gears_module * 2.2 : gears_pinion2_r*2 + gears_module * 2;
 gears_worm_da = gears_worm_r*2.3;
-//-----------------------------------------------------------------------
-//                  SERVO now in servo file
-//-----------------------------------------------------------------------
-//servo arm param
-/*servo_arm_d = 7;        //diamteter of center part
-servo_arm_h = 4;        //hight of servo arm
-servo_arm_w1 = 5.3;     //greatest arm with, close to round center part
-servo_arm_w2 = 4;       //arm with measured at last hole, most distant from center
-servo_arm_l = 29;       //distance between outer most holes
-servo_arm_dist = 2;   //distance between servoarm and servobody, when mounted
-//servo body + mount param
-servo_w = 12;           //with or thickness of servo, should be between 12 and 12.5
-servo_h = 28;           //hight of mainbody, without axis/shaft
-servo_l = 23;           //lenght of servo mainbody (not the mount)
-servo_shaft_d = 5;      //diameter of servo axis/shaft
-servo_shaft_h = 3;      //hight of servo axis/shaft
-servo_shaft_dist = 5.5; //distnace shaft from center mainbody
-servo_mount_l = 33;     //lenght of mount, should be 32 to 34
-servo_mount_dist = 8;   //distance from topside of mainbody to mount
-servo_hole_dist = 27.7; //distance of mounting holes, should be 26 to 28*/
-
-//-----------------------------------------------------------------------
-//                  N20 now in N20 file
-//-----------------------------------------------------------------------
-//param for N20 motor
-/*N20_l_axis = 10;        //length of axis
-N20_d_axis = 3.0;         //diameter of axis
-N20_t_cutoff = 2.5;     //"diameter" or thickness of cutoff
-N20_d_axis_base = 4;    //ring around axis on fange
-N20_h_axsis_base = 1;   //hight of ring
-N20_l_body = 26;        //length of body (gears and motor)
-N20_w_body = 12;        //with
-N20_t_body = 10;        //tickness
-N20_worm_mount_dist = 4; //distance between N20 mount and worm gear, is > 3*/
 
 //-----------------------------------------------------------------------
 //                  CASE
@@ -99,6 +75,12 @@ case_walls=3;                           //wall thickness for test assemblys
 case_walls_z = 4*3dp_lh;		//wall thickness in Z
 case_tape_channel = 2;                  //with of tape channel
 case_offset_n20 = 20;			//offset form worm x to tape channel if n20 motor is used
+
+//Feeder_Width = 13.5; //[13.5:8mm tape, 16:12mm tape, 20:16mm tape, 28:24mm tape]
+//feeder_width_list = [13.5,16,20,28];			//list of feeder width for different SMD tape width
+//Feeder_Width = feeder_width_list[SMD_Tape_Width];
+//feeder_mount_y_list = [7.55,9.55,11.55,15.55];		//list of y positions for feeder width
+//feeder_mount_y = feeder_mount_y_list[SMD_Tape_Width];
 
 //pramam for positioning
 gear1z = case_h-case_walls-gears_pinion1_r-6-4;
