@@ -42,13 +42,27 @@ pi = 3.14159;
 //                  GEARS PARAM
 //-----------------------------------------------------------------------
 //param gears, no need to change anything here
-gears_pressure_angle = 20;              //pressure angel for gears
-gears_lead_angle = 10;                  //lead angle for gears
-gears_module = 0.9;                     //module for gearset
-gears_pinion1_teeth = 15;                //number of theeth for pinio gears
-gears_pinion2_teeth = 20;                //number of theeth for pinio gears
+RPM_300 =  [20,10,0.9,15,20,2];
+RPM_200 =  [20,17,1.0,14,20,3];
+RPM_150 =  [20,22,1.0,13,20,4];
+RPM_List = [RPM_300,RPM_200,RPM_150];
+RPM_Values = RPM_List[N20_RPM];
+
+gears_pressure_angle = RPM_Values[0];              //pressure angel for gears
+gears_lead_angle = RPM_Values[1];                  //lead angle for gears
+gears_module = RPM_Values[2];                     //module for gearset
+gears_pinion1_teeth = RPM_Values[3];                //number of theeth for pinio gears
+gears_pinion2_teeth = RPM_Values[4];                //number of theeth for pinio gears
 gears_pinion_with = round_lh(Feeder_Width-6.5);                  //with of pinion gears
-gears_worm_threads = 2;                 //number of threads on worm gear
+gears_worm_threads = RPM_Values[5];                 //number of threads on worm gear
+
+//gears_pressure_angle = 20;              //pressure angel for gears
+//gears_lead_angle = 10;                  //lead angle for gears
+//gears_module = 0.9;                     //module for gearset
+//gears_pinion1_teeth = 15;                //number of theeth for pinio gears
+//gears_pinion2_teeth = 20;                //number of theeth for pinio gears
+//gears_pinion_with = round_lh(Feeder_Width-6.5);                  //with of pinion gears
+//gears_worm_threads = 2;                 //number of threads on worm gear
 gears_worm_height = round_lh(22);                 //height of worm gear
 gears_pinion_mount_683_through = 5.5;   //through hole diameter for 683
 gears_pinion_mount_623_through = 8;   //through hole diameter for 623

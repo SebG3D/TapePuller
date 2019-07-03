@@ -3,6 +3,9 @@
 //select the motor to drive the worm gear
 Motor_Type = 2; //[0:SG90, 1:MG90, 2:N20]
 
+//select N20 rpm
+N20_RPM = 0; //[0:300 rpm, 1:200 rpm, 2:150 rpm]
+
 //select SMD tape width
 SMD_Tape_Width = 0; //[0:8mm tape, 1:12mm tape, 2:16mm tape, 3:24mm tape]
 

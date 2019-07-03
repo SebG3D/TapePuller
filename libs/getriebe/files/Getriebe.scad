@@ -1,4 +1,4 @@
-$fn = 96;
+$fn = 40;
 
 /* Bibliothek für Evolventen-Zahnräder, Schnecken und Zahnstangen
 
@@ -920,4 +920,37 @@ module schneckenradsatz(modul, zahnzahl, gangzahl, breite, laenge, bohrung_schne
 
 // schnecke(modul=1, gangzahl=2, laenge=15, bohrung=4, eingriffswinkel=20, steigungswinkel=10, zusammen_gebaut=true);
 
-// schneckenradsatz(modul=1, zahnzahl=30, gangzahl=2, breite=8, laenge=20, bohrung_schnecke=4, bohrung_rad=4, eingriffswinkel=20, steigungswinkel=10, optimiert=true, zusammen_gebaut=true);
+//stirnrad (gears_module, gears_pinion1_teeth, gears_pinion_with, 3.8, gears_pressure_angle, -gears_lead_angle, false);
+//schnecke(gears_module, gears_worm_threads, gears_worm_height, 0, gears_pressure_angle, gears_lead_angle, true);
+//-----------------------------------------------------------------------
+//                  GEARS PARAM
+//-----------------------------------------------------------------------
+//param gears, no need to change anything here
+gears_pressure_angle = 20;              //pressure angel for gears
+gears_lead_angle = 17;                  //lead angle for gears
+gears_module = 1.0;                     //module for gearset
+gears_pinion1_teeth = 14;                //number of theeth for pinio gears
+gears_pinion2_teeth = 20;                //number of theeth for pinio gears
+gears_pinion_with = 7;                  //with of pinion gears
+gears_worm_threads = 3;                 //number of threads on worm gear
+gears_worm_height = 22;                 //height of worm gear
+gears_pinion_mount_683_through = 5.5;   //through hole diameter for 683
+gears_pinion_mount_623_through = 8;   //through hole diameter for 623
+//some calculated values
+c = gears_module / 6;					// Kopfspiel
+gears_worm_r = gears_module*gears_worm_threads/(2*sin(gears_lead_angle));		// Teilzylinder-Radius Schnecke
+gears_pinion1_r = gears_module*gears_pinion1_teeth/2;									// Teilkegelradius Stirnrad
+gears_pinion2_r = gears_module*gears_pinion2_teeth/2;
+gears_pinion1_df = 2*gears_pinion1_r - 2 * (gears_module + c);//inner diameter/start of teeth
+gears_pinion2_df = 2*gears_pinion2_r - 2 * (gears_module + c);//inner diameter/start of teeth
+gears_worm_rf = gears_worm_r - gears_module - c;						// Fußzylinder-Radius
+//gamma = -90*gears_pinion_with*sin(gears_lead_angle)/(pi*gears_pinion_r);			// Rotationswinkel Stirnrad
+gears_tooth_dist = gears_module*pi/cos(gears_lead_angle);				// gears_tooth_dist im Transversalschnitt
+gears_pinion1_ad = (gears_module <1)? gears_pinion1_r*2 + gears_module * 2.2 : gears_pinion1_r*2 + gears_module * 2;				// Kopfkreisdurchmesser nach DIN 58400 bzw. DIN 867
+gears_pinion2_ad = (gears_module <1)? gears_pinion2_r*2 + gears_module * 2.2 : gears_pinion2_r*2 + gears_module * 2;
+gears_worm_da = gears_worm_r*2.3;
+
+echo("worm d: ", gears_worm_da);
+echo("pinion d:", gears_pinion1_ad);
+
+schneckenradsatz(modul=gears_module, zahnzahl=gears_pinion1_teeth, gangzahl=gears_worm_threads, breite=gears_pinion_with, laenge=gears_worm_height, bohrung_schnecke=4, bohrung_rad=4, eingriffswinkel=gears_pressure_angle, steigungswinkel=gears_lead_angle, optimiert=false, zusammen_gebaut=true);
