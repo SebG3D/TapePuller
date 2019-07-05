@@ -22,6 +22,8 @@ module gear_test(){
     $fn = 20;
 
     bevel_gear(2);
+//    encoder_dent(1,2,3);
+    
     //tooth(1,2,3);
     //translate([40,0,0])bevel_gear(2);
     
@@ -421,6 +423,13 @@ module bevel_gear(gear_type){
     tape_wheel_d = tape_wheel_u/pi;//results from number of teeth
     echo("Tape wheel diameter =",tape_wheel_d);
     
+    //encoder dents
+    encoder_dent_h = tape_wheel_teeth_h+2;
+    encoder_dent_w = 2.5;
+    encoder_dent_l = 4;
+    encoder_do = 65;
+    encoder_dents =50; //number of dents
+    
     
     //calc stuff
     r_rad = modul*zahnzahl_rad/2;							// Teilkegelradius des Rads
@@ -494,6 +503,14 @@ module bevel_gear(gear_type){
                 translate([0,0,5])cylinder(h=1, r2=gears_pinion_mount_623/2+1, r1=gears_pinion_mount_623/2, center=false);
                 //chamfer top side for easy printing
                 translate([0,0,-0.1])cylinder(h=1.5, r1=gears_pinion_mount_623_through/2+1.5, r2=gears_pinion_mount_623_through/2, center=false);
+                //encoder disc
+                for (i =[0:(360/encoder_dents):360]){
+                rotate([0,0,i])
+                    translate([encoder_do/2,0,0])union(){
+                        //shape of dent
+                        encoder_dent(encoder_dent_h,encoder_dent_w,encoder_dent_l);
+                    }
+                }
             }
         }
     }
@@ -519,4 +536,11 @@ module tooth(height,width,length){
             polygon( points=[[width/2+0.01,-0.01],[width/2+0.01,0.25],[width/2-0.25,-0.01]]);
         }
     }
+}
+
+module encoder_dent(height,width,length){
+    rotate([0,-90,0])
+        linear_extrude(height = length, center = false, convexity = 10){
+            polygon([[height+0.01,0],[-0.01,width/2],[-0.01,-width/2]],[[0,1,2,0]]);
+        }
 }
