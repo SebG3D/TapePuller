@@ -164,7 +164,7 @@ module partgenerator(){
        // reduce resolution for faster rendering
        $fn = 80;
         case_bottom(case_height,case_length,case_width,case_tape_dist);
-        case_top(case_height,case_length,case_width,case_tape_dist);
+        if(!Hide_Lid)case_top(case_height,case_length,case_width,case_tape_dist);
         //bevel_gear(1);
 //        translate([60,7-Tape[E]+0.5,case_height-4-76.4/2])
 //            rotate([90,0,0])
@@ -214,7 +214,7 @@ module partgenerator(){
                 // Ritzel
                     translate([-hoehe_f_ritzel*cos(90-achsenwinkel),0,hoehe_f_rad-hoehe_f_ritzel*sin(90-achsenwinkel)+4])
                         rotate([0,achsenwinkel,0])
-                            {bevel_gear(1);translate([0,0,-2])rotate([0,0,90])N20();}
+                            {bevel_gear(1);if(!Hide_Motor)translate([0,0,-2])rotate([0,0,90])N20();}
                 }
     }
 }
